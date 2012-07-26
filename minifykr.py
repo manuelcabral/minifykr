@@ -77,4 +77,4 @@ options = parser.parse_args()
 minifyKr(options.inputFile, options.outputFile)
 
 if(options.e):
-	subprocess.call(['kencrypt', '-h5', '-ow', options.outputFile])
+	subprocess.call(['kencrypt', '-h5', '-in='+options.outputFile, '-out='+options.outputFile])
