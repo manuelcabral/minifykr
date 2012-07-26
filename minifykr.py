@@ -9,6 +9,18 @@ def copyElementTag(element):
 
 
 
+def removeUnecessary(element):
+	element.tail = None
+
+	if element.tag != "data" and element.tag != "action":
+		element.text = None
+
+	for c in element.getchildren():
+		removeUnecessary(c)
+
+	
+
+
 def mergeInto(root, newRoot):
 
 	for e in root.getchildren():
@@ -31,7 +43,8 @@ def mergeInto(root, newRoot):
 		else:
 			#print("TAIL: ",e.tail)
 			#print("TEXT: ", e.text)
-			e.tail = None
+			removeUnecessary(e)
+			
 			newRoot.insert(MAXIMUM_INDEX, e) #gigantic number ensures that the tags will always be added to the end of the file
 
 	return newRoot
@@ -53,8 +66,8 @@ def minifyKr(source, destination):
 
 parser = argparse.ArgumentParser(description='Minify XML files in krpano projects')
 
-parser.add_argument('inputFile', default="tour.xml")
-parser.add_argument('outputFile', default="tour.min.xml")
+parser.add_argument('inputFile', nargs='?', default="tour.xml")
+parser.add_argument('outputFile', nargs='?', default="tour.min.xml")
 
 options = parser.parse_args()
 
