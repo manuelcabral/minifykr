@@ -1,5 +1,6 @@
 import argparse
 from xml.etree.ElementTree import ElementTree, Element
+import subprocess
 
 MAXIMUM_INDEX = 99999999999999
 
@@ -66,9 +67,14 @@ def minifyKr(source, destination):
 
 parser = argparse.ArgumentParser(description='Minify XML files in krpano projects')
 
+parser.add_argument('-e', action='store_true', default=False, 
+	help='Encrypt using kencrypt (requires kencrypt to be available in PATH)')
 parser.add_argument('inputFile', nargs='?', default="tour.xml")
 parser.add_argument('outputFile', nargs='?', default="tour.min.xml")
 
 options = parser.parse_args()
 
 minifyKr(options.inputFile, options.outputFile)
+
+if(options.e):
+	subprocess.call(['kencrypt', '-h5', '-ow', options.outputFile])
