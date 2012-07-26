@@ -12,4 +12,4 @@ This script recursively transverses all the files which are included in "inputFi
 
 - removes comments
 - removes characters between tags
-- removes text inside tags which are not <data> or <action>
+- removes text inside tags which are not &lt;data&gt; or &lt;action&gt;
